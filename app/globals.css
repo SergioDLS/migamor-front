@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Paleta oficial Masamor (Guía de uso gráfico):
+  #4e2d1e chocolate · #ebaba2 blush · #f9e6c8 crema
+  #ee7264 coral · #d4eee3 menta · #ffffff blanco
+*/
+@layer base {
+  :root {
+    --background: 38 55% 97%;          /* crema muy claro */
+    --foreground: 20 44% 21%;          /* chocolate */
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 44% 21%;
+
+    --primary: 20 44% 21%;             /* chocolate — CTAs principales */
+    --primary-foreground: 37 80% 95%;
+
+    --secondary: 8 65% 90%;            /* blush claro */
+    --secondary-foreground: 20 44% 24%;
+
+    --muted: 37 45% 92%;               /* crema */
+    --muted-foreground: 20 20% 42%;
+
+    --accent: 6 80% 66%;               /* coral — acentos vibrantes */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 28 35% 87%;
+    --input: 28 35% 87%;
+    --ring: 6 80% 66%;                 /* coral */
+
+    --radius: 0.9rem;
+
+    /* Tokens de marca para usos directos */
+    --brand-chocolate: 20 44% 21%;
+    --brand-blush: 8 65% 78%;
+    --brand-cream: 37 80% 88%;
+    --brand-coral: 6 80% 66%;
+    --brand-mint: 155 43% 88%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
