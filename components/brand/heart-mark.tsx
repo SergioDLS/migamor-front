@@ -6,8 +6,11 @@
  * a mano y no coincidía con la marca.
  *
  * El símbolo son dos formas rellenas, no un trazo. Las props `stroke` y `dot`
- * se conservan por compatibilidad con los consumidores existentes, pero
- * ambas mapean a `fill`: `stroke` pinta el corazón y `dot` pinta el punto.
+ * se conservan por compatibilidad con los consumidores existentes, pero ambas
+ * mapean a `fill`: `stroke` pinta el corazón y `dot` pinta el punto.
+ *
+ * El viewBox está recortado al contenido (ver scripts/tighten-viewbox.py): el
+ * artboard original era cuadrado y dejaba el símbolo diminuto al fijarle altura.
  */
 export function HeartMark({
   className,
@@ -20,7 +23,7 @@ export function HeartMark({
 }) {
   return (
     <svg
-      viewBox="0 0 566.93 566.93"
+      viewBox="87.82 127.03 391.30 312.87"
       className={className}
       role="img"
       aria-label="Migamor"

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from './auth-provider';
+import { Logo } from './brand/logo';
 import { Button, buttonVariants } from './ui/button';
 
 export function SiteHeader() {
@@ -17,16 +18,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="Masamor — inicio">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/logo-horizontal.svg"
-            alt="Masamor"
-            className="h-7 w-auto sm:h-8"
+        <Link href="/" className="flex items-center" aria-label="Migamor — inicio">
+          <Logo
+            variant="compacto"
+            className="h-9 w-auto text-brand-chocolate sm:h-10"
           />
         </Link>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-1 font-body">
           {session ? (
             <>
               <Link
