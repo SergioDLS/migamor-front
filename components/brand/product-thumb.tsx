@@ -1,7 +1,9 @@
 import { HeartMark } from './heart-mark';
+import { PatternBg } from './pattern-bg';
+import { BakeryIcon, type BakeryIconName } from './bakery-icon';
 
 // Placeholder de producto con identidad de marca (aún sin fotografía real).
-// Color determinístico por nombre + emoji de repostería según el tipo.
+// Color determinístico por nombre + icono del kit según el tipo.
 const BRAND_BG = [
   'bg-brand-blush/60',
   'bg-brand-mint/70',
@@ -9,14 +11,14 @@ const BRAND_BG = [
   'bg-brand-coral/25',
 ];
 
-function emojiFor(name: string) {
+function iconFor(name: string): BakeryIconName {
   const n = name.toLowerCase();
-  if (n.includes('galleta')) return '🍪';
-  if (n.includes('queque') || n.includes('muffin')) return '🧁';
-  if (n.includes('torta') || n.includes('pastel')) return '🍰';
-  if (n.includes('pan')) return '🍞';
-  if (n.includes('display')) return '🧁';
-  return '🥐';
+  if (n.includes('galleta')) return 'cupcake';
+  if (n.includes('queque') || n.includes('muffin')) return 'muffin';
+  if (n.includes('torta') || n.includes('pastel')) return 'torta';
+  if (n.includes('pan')) return 'pan';
+  if (n.includes('display')) return 'cupcake';
+  return 'croissant';
 }
 
 function hash(s: string) {
@@ -53,15 +55,12 @@ export function ProductThumb({
       className={`relative flex items-center justify-center overflow-hidden ${bg} ${className}`}
       aria-hidden
     >
-      <div
-        className="absolute inset-0 opacity-[0.12]"
-        style={{
-          backgroundImage: 'url(/brand/patron-corazones.png)',
-          backgroundSize: '120px',
-        }}
+      <PatternBg variant="corazones" opacity={0.14} size={90} />
+      <BakeryIcon
+        name={iconFor(name)}
+        className="relative h-20 w-20 text-brand-chocolate/80"
       />
-      <span className="relative text-5xl drop-shadow-sm">{emojiFor(name)}</span>
-      <HeartMark className="absolute bottom-2 right-2 h-5 w-5 text-brand-chocolate/70" />
+      <HeartMark className="absolute bottom-2 right-2 h-4 w-4 text-brand-chocolate/50" />
     </div>
   );
 }

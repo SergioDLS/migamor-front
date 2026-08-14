@@ -61,7 +61,7 @@ export default function AdminOrdersPage() {
   if (!session || profile?.role !== 'admin') {
     return (
       <p className="container py-12 text-destructive">
-        Acceso restringido. Solo administradores de Masamor.
+        Acceso restringido. Solo administradores de Migamor.
       </p>
     );
   }
@@ -83,12 +83,12 @@ export default function AdminOrdersPage() {
         <Table>
           <TableHeader>
             <TableRow className="bg-brand-cream/50 hover:bg-brand-cream/50">
-              <TableHead>Pedido</TableHead>
-              <TableHead>Cliente</TableHead>
-              <TableHead>Fecha</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead className="text-right">Acción</TableHead>
+              <TableHead className="font-accent text-[0.65rem] uppercase tracking-widest">Pedido</TableHead>
+              <TableHead className="font-accent text-[0.65rem] uppercase tracking-widest">Cliente</TableHead>
+              <TableHead className="font-accent text-[0.65rem] uppercase tracking-widest">Fecha</TableHead>
+              <TableHead className="font-accent text-[0.65rem] uppercase tracking-widest">Total</TableHead>
+              <TableHead className="font-accent text-[0.65rem] uppercase tracking-widest">Estado</TableHead>
+              <TableHead className="font-accent text-[0.65rem] uppercase tracking-widest text-right">Acción</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

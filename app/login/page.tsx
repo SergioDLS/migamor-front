@@ -14,7 +14,8 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { HeartMark } from '@/components/brand/heart-mark';
+import { Logo } from '@/components/brand/logo';
+import { PatternBg } from '@/components/brand/pattern-bg';
 
 type Mode = 'login' | 'register';
 
@@ -78,8 +79,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md px-4 py-12">
-      <HeartMark className="mx-auto mb-4 h-12 w-12 text-brand-coral" />
+    <div className="relative">
+      <PatternBg variant="sellos" opacity={0.05} size={130} />
+      <div className="relative mx-auto max-w-md px-4 py-12">
+        <Logo
+          variant="simbolo"
+          className="mx-auto mb-6 h-14 w-auto text-brand-coral"
+        />
       <Card>
         <CardHeader>
           <CardTitle className="font-display text-2xl text-brand-chocolate">
@@ -87,7 +93,7 @@ export default function LoginPage() {
           </CardTitle>
           <CardDescription>
             {mode === 'login'
-              ? 'Accede a tu portal Masamor.'
+              ? 'Accede a tu portal Migamor.'
               : 'Regístrate según tu tipo de negocio.'}
           </CardDescription>
         </CardHeader>
@@ -130,7 +136,7 @@ export default function LoginPage() {
                   <Label htmlFor="role">Segmento</Label>
                   <select
                     id="role"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 font-body text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     value={role}
                     onChange={(e) =>
                       setRole(e.target.value as Exclude<UserRole, 'admin'>)
@@ -173,7 +179,8 @@ export default function LoginPage() {
               : '¿Ya tienes cuenta? Ingresa'}
           </button>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }
