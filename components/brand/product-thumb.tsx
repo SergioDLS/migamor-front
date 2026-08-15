@@ -3,7 +3,7 @@ import { PatternBg } from './pattern-bg';
 import { BakeryIcon, type BakeryIconName } from './bakery-icon';
 
 // Placeholder de producto con identidad de marca (aún sin fotografía real).
-// Color determinístico por nombre + icono del kit según el tipo.
+// Color determinístico por nombre + marca del kit según la familia de producto.
 const BRAND_BG = [
   'bg-brand-blush/60',
   'bg-brand-mint/70',
@@ -11,13 +11,26 @@ const BRAND_BG = [
   'bg-brand-coral/25',
 ];
 
-function iconFor(name: string): BakeryIconName {
+/**
+ * Marca visual por familia de producto.
+ *
+ * `'brand'` significa "sin icono adecuado en el kit": se usa el corazón
+ * Migamor en vez de un icono de comida que mienta. Es el caso de las galletas
+ * NY — el kit no incluye icono de galleta pese a ser el producto estrella, y
+ * está pedido al estudio. Cuando llegue, esta rama pasa a `'galleta'`.
+ *
+ * El orden importa: "Display Galletas NY" es un display, no una galleta suelta,
+ * así que `display` se evalúa primero.
+ */
+type ProductMark = BakeryIconName | 'brand';
+
+function markFor(name: string): ProductMark {
   const n = name.toLowerCase();
-  if (n.includes('galleta')) return 'cupcake';
+  if (n.includes('display')) return 'torta';
+  if (n.includes('galleta')) return 'brand';
   if (n.includes('queque') || n.includes('muffin')) return 'muffin';
   if (n.includes('torta') || n.includes('pastel')) return 'torta';
   if (n.includes('pan')) return 'pan';
-  if (n.includes('display')) return 'cupcake';
   return 'croissant';
 }
 
@@ -49,6 +62,7 @@ export function ProductThumb({
   }
 
   const bg = BRAND_BG[hash(name) % BRAND_BG.length];
+  const mark = markFor(name);
 
   return (
     <div
@@ -56,11 +70,19 @@ export function ProductThumb({
       aria-hidden
     >
       <PatternBg variant="corazones" opacity={0.14} size={90} />
-      <BakeryIcon
-        name={iconFor(name)}
-        className="relative h-20 w-20 text-brand-chocolate/80"
-      />
-      <HeartMark className="absolute bottom-2 right-2 h-4 w-4 text-brand-chocolate/50" />
+      {mark === 'brand' ? (
+        <HeartMark className="relative h-16 w-16 text-brand-chocolate/80" />
+      ) : (
+        <>
+          <BakeryIcon
+            name={mark}
+            className="relative h-20 w-20 text-brand-chocolate/80"
+          />
+          {/* Firma de marca en la esquina. Se omite cuando el corazón ya es la
+              marca principal del thumb, para no duplicarlo. */}
+          <HeartMark className="absolute bottom-2 right-2 h-4 w-4 text-brand-chocolate/50" />
+        </>
+      )}
     </div>
   );
 }
