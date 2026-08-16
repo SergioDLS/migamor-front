@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/card';
 import { OrderStatusBadge } from '@/components/brand/order-status-badge';
 import { OrderTimeline } from '@/components/brand/order-timeline';
-import { HeartMark } from '@/components/brand/heart-mark';
+import { BakeryIcon } from '@/components/brand/bakery-icon';
 
 export default function MyOrdersPage() {
   const { session, loading } = useAuth();
@@ -54,7 +54,7 @@ export default function MyOrdersPage() {
       )}
       {!ordersQuery.isLoading && orders.length === 0 && (
         <div className="flex flex-col items-center gap-3 rounded-3xl bg-brand-cream/60 py-16 text-center">
-          <HeartMark className="h-12 w-12 text-brand-coral" />
+          <BakeryIcon name="croissant" className="h-16 w-16 text-brand-coral" />
           <p className="text-muted-foreground">
             Todavía no tienes pedidos. Ve al{' '}
             <a href="/catalog" className="font-medium text-brand-coral underline">
@@ -100,7 +100,7 @@ export default function MyOrdersPage() {
               )}
 
               <div className="mt-4 border-t pt-3">
-                <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-brand-chocolate/70">
+                <p className="mb-1 font-accent text-[0.65rem] uppercase tracking-widest text-brand-chocolate/70">
                   Seguimiento
                 </p>
                 <OrderTimeline history={order.history} />

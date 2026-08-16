@@ -87,7 +87,7 @@ export default function CatalogPage() {
             Catálogo
           </h1>
           {profile && (
-            <Badge variant="secondary">
+            <Badge variant="secondary" className="font-accent text-[0.65rem] uppercase tracking-widest">
               Precios {profile.priceTier === 'wholesale' ? 'mayoristas' : 'detalle'}
             </Badge>
           )}
@@ -114,10 +114,10 @@ export default function CatalogPage() {
                 <CardTitle className="font-display text-lg text-brand-chocolate">
                   {p.name}
                 </CardTitle>
-                <CardDescription>{p.description}</CardDescription>
+                <CardDescription className="font-body">{p.description}</CardDescription>
               </CardHeader>
               <CardContent className="pb-3">
-                <p className="text-2xl font-bold text-brand-coral">
+                <p className="font-display text-2xl font-semibold text-brand-coral">
                   {formatCLP(p.price)}
                 </p>
               </CardContent>
@@ -149,7 +149,7 @@ export default function CatalogPage() {
               <HeartMark className="h-5 w-5 text-brand-coral" />
               Tu pedido
             </CardTitle>
-            <CardDescription>Sin pago en línea. Masamor confirma.</CardDescription>
+            <CardDescription>Sin pago en línea. Migamor confirma.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             {cartItems.length === 0 && (
@@ -172,12 +172,12 @@ export default function CatalogPage() {
                   <span className="font-display text-lg text-brand-chocolate">
                     Total
                   </span>
-                  <span className="text-xl font-bold text-brand-coral">
+                  <span className="font-display text-xl font-semibold text-brand-coral">
                     {formatCLP(total)}
                   </span>
                 </div>
                 <Textarea
-                  placeholder="Notas para Masamor (opcional)"
+                  placeholder="Notas para Migamor (opcional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                 />

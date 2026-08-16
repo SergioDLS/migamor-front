@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 /*
-  Paleta oficial Masamor (Guía de uso gráfico):
+  Paleta oficial Migamor (Guía de uso gráfico):
   #4e2d1e chocolate · #ebaba2 blush · #f9e6c8 crema
   #ee7264 coral · #d4eee3 menta · #ffffff blanco
 */
 @layer base {
   :root {
     --background: 38 55% 97%;          /* crema muy claro */
-    --foreground: 20 44% 21%;          /* chocolate */
+    --foreground: 19 44% 21%;          /* chocolate */
 
     --card: 0 0% 100%;
-    --card-foreground: 20 44% 21%;
+    --card-foreground: 19 44% 21%;
 
-    --primary: 20 44% 21%;             /* chocolate — CTAs principales */
+    --primary: 19 44% 21%;             /* chocolate — CTAs principales */
     --primary-foreground: 37 80% 95%;
 
-    --secondary: 8 65% 90%;            /* blush claro */
-    --secondary-foreground: 20 44% 24%;
+    --secondary: 8 65% 90%;            /* blush aclarado (no es el token de marca) */
+    --secondary-foreground: 19 44% 24%;
 
     --muted: 37 45% 92%;               /* crema */
     --muted-foreground: 20 20% 42%;
@@ -37,8 +37,8 @@
     --radius: 0.9rem;
 
     /* Tokens de marca para usos directos */
-    --brand-chocolate: 20 44% 21%;
-    --brand-blush: 8 65% 78%;
+    --brand-chocolate: 19 44% 21%;
+    --brand-blush: 7 65% 78%;
     --brand-cream: 37 80% 88%;
     --brand-coral: 6 80% 66%;
     --brand-mint: 155 43% 88%;

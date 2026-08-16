@@ -38,7 +38,7 @@ export const STATUS_STYLES: Record<OrderStatus, string> = {
   requested: 'bg-brand-blush/60 text-brand-chocolate',
   confirmed: 'bg-brand-coral text-white',
   in_production: 'bg-brand-cream text-brand-chocolate',
-  shipped: 'bg-brand-mint text-emerald-800',
+  shipped: 'bg-brand-mint text-brand-chocolate',
   delivered: 'bg-brand-chocolate text-brand-cream',
   cancelled: 'bg-destructive/15 text-destructive',
 };

@@ -1,25 +1,14 @@
 import type { Metadata } from 'next';
-import { Fredoka, Nunito } from 'next/font/google';
 import './globals.css';
+import { fontVariables } from './fonts';
 import { Providers } from '@/components/providers';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 
-const fredoka = Fredoka({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-fredoka',
-});
-
-const nunito = Nunito({
-  subsets: ['latin'],
-  variable: '--font-nunito',
-});
-
 export const metadata: Metadata = {
-  title: 'Masamor — Calidad, horno y corazón',
+  title: 'Migamor — Calidad, horno y corazón',
   description:
-    'Plataforma B2B de Masamor: queques y galletas estilo New York, congelados y prehorneados. Pedidos mayoristas y al detalle.',
+    'Plataforma B2B de Migamor: queques y galletas estilo New York, congelados y prehorneados. Pedidos mayoristas y al detalle.',
 };
 
 export default function RootLayout({
@@ -28,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${fredoka.variable} ${nunito.variable}`}>
-      <body className="font-[var(--font-nunito)] antialiased">
+    <html lang="es" className={fontVariables}>
+      <body className="font-body antialiased">
         <Providers>
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
