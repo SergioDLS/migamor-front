@@ -88,9 +88,11 @@ export default function LandingPage() {
             { n: '3', t: 'Sigue y recompra', d: 'Estados en tiempo real y recompra desde tu portal.' },
           ].map((s) => (
             <li key={s.n} className="flex flex-col items-center text-center">
+              {/* Sello en coral rebajado: a plena saturación el coral no
+                  alcanza contraste AA con ningún color de texto. */}
               <span className="relative flex h-16 w-16 items-center justify-center">
-                <Seal className="absolute inset-0 h-full w-full text-brand-coral" />
-                <span className="relative font-accent text-xl leading-none text-white">
+                <Seal className="absolute inset-0 h-full w-full text-brand-coral/25" />
+                <span className="relative font-accent text-xl leading-none text-brand-chocolate">
                   {s.n}
                 </span>
               </span>

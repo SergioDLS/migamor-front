@@ -34,9 +34,14 @@ export function statusVariant(
 }
 
 // Progresión de color de marca por estado (blush → coral → cream → mint → chocolate).
+//
+// Todos los badges van con fondo claro y texto chocolate: el coral a plena
+// saturación no alcanza contraste AA con ningún color de texto (blanco 2.9:1,
+// chocolate 4.2:1, crema 2.4:1), porque su luminancia queda justo en medio.
+// Al 25% sobre el fondo conserva el matiz identificador y llega a 9.5:1.
 export const STATUS_STYLES: Record<OrderStatus, string> = {
   requested: 'bg-brand-blush/60 text-brand-chocolate',
-  confirmed: 'bg-brand-coral text-white',
+  confirmed: 'bg-brand-coral/25 text-brand-chocolate',
   in_production: 'bg-brand-cream text-brand-chocolate',
   shipped: 'bg-brand-mint text-brand-chocolate',
   delivered: 'bg-brand-chocolate text-brand-cream',

@@ -69,6 +69,47 @@ export default function AdminOrdersPage() {
   const orders = ordersQuery.data ?? [];
   const isTerminal = (s: OrderStatus) => s === 'delivered' || s === 'cancelled';
 
+  const openCancel = (order: Order) => {
+    setReason('');
+    cancelOrder.reset();
+    setCancelTarget(order);
+  };
+
+  /**
+   * Acciones de un pedido. Extraído para que la tabla de escritorio y las
+   * tarjetas de móvil compartan la misma lógica en lugar de duplicarla.
+   */
+  function OrderActions({ order }: { order: Order }) {
+    const next = nextStatus(order.status);
+
+    if (isTerminal(order.status)) {
+      return <span className="text-xs text-muted-foreground">Finalizado</span>;
+    }
+
+    return (
+      <div className="flex justify-end gap-2">
+        {next && (
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={updateStatus.isPending}
+            onClick={() => updateStatus.mutate({ id: order.id, status: next })}
+          >
+            → {STATUS_LABELS[next]}
+          </Button>
+        )}
+        <Button
+          size="sm"
+          variant="ghost"
+          className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+          onClick={() => openCancel(order)}
+        >
+          Cancelar
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="container space-y-6 py-8">
       <h1 className="font-display text-3xl font-semibold text-brand-chocolate">
@@ -79,7 +120,9 @@ export default function AdminOrdersPage() {
         <p className="text-muted-foreground">Cargando pedidos…</p>
       )}
 
-      <div className="rounded-lg border">
+      {/* Escritorio: tabla. En móvil las 6 columnas ocupan 782px en 309px
+          disponibles, dejando la columna de acciones fuera de pantalla. */}
+      <div className="hidden rounded-lg border md:block">
         <Table>
           <TableHeader>
             <TableRow className="bg-brand-cream/50 hover:bg-brand-cream/50">
@@ -93,7 +136,6 @@ export default function AdminOrdersPage() {
           </TableHeader>
           <TableBody>
             {orders.map((order) => {
-              const next = nextStatus(order.status);
               return (
                 <TableRow key={order.id}>
                   <TableCell className="font-mono text-xs">
@@ -123,38 +165,7 @@ export default function AdminOrdersPage() {
                     )}
                   </TableCell>
                   <TableCell className="text-right">
-                    {isTerminal(order.status) ? (
-                      <span className="text-xs text-muted-foreground">
-                        Finalizado
-                      </span>
-                    ) : (
-                      <div className="flex justify-end gap-2">
-                        {next && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            disabled={updateStatus.isPending}
-                            onClick={() =>
-                              updateStatus.mutate({ id: order.id, status: next })
-                            }
-                          >
-                            → {STATUS_LABELS[next]}
-                          </Button>
-                        )}
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-                          onClick={() => {
-                            setReason('');
-                            cancelOrder.reset();
-                            setCancelTarget(order);
-                          }}
-                        >
-                          Cancelar
-                        </Button>
-                      </div>
-                    )}
+                    <OrderActions order={order} />
                   </TableCell>
                 </TableRow>
               );
@@ -162,6 +173,47 @@ export default function AdminOrdersPage() {
           </TableBody>
         </Table>
       </div>
+
+      {/* Móvil: una tarjeta por pedido, con la acción siempre visible. */}
+      <ul className="space-y-3 md:hidden">
+        {orders.map((order) => (
+          <li key={order.id} className="rounded-xl border bg-card p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="font-mono text-xs text-muted-foreground">
+                  #{order.id.slice(0, 8)}
+                </p>
+                <p className="mt-0.5 font-display text-base text-brand-chocolate">
+                  {order.customer?.businessName ?? '—'}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {order.customer?.role} · {order.items.length} ítem(s)
+                </p>
+              </div>
+              <OrderStatusBadge status={order.status} />
+            </div>
+
+            <div className="mt-3 flex items-baseline justify-between border-t pt-3">
+              <span className="text-xs text-muted-foreground">
+                {new Date(order.createdAt).toLocaleDateString('es-CL')}
+              </span>
+              <span className="font-display text-lg font-semibold text-brand-chocolate">
+                {formatCLP(order.total ? Number(order.total) : null)}
+              </span>
+            </div>
+
+            {order.status === 'cancelled' && order.cancellationReason && (
+              <p className="mt-2 text-xs italic text-muted-foreground">
+                “{order.cancellationReason}”
+              </p>
+            )}
+
+            <div className="mt-3">
+              <OrderActions order={order} />
+            </div>
+          </li>
+        ))}
+      </ul>
 
       {updateStatus.isError && (
         <p className="text-sm text-destructive">
